@@ -12,7 +12,7 @@ function appendRowsAndData(obj) {
     })
 };
 
-// Append table rows and data
+// Append all table rows and data
 data.forEach(appendRowsAndData);
 
 var button = d3.select("#filter-btn");
@@ -30,6 +30,7 @@ button.on("click", function() {
         filterInputs.datetime = datetime;
     }
 
+    // This variable set in moreFilters.on()
     if (usingMoreFilters) {
         var cityFilter = d3.select("#City-filter");
         var city = cityFilter.property("value").toLowerCase();
@@ -57,13 +58,6 @@ button.on("click", function() {
         
         if (shape !== "") {
             filterInputs.shape = shape;
-        }
-
-        var durationFilter = d3.select("#Duration-filter");
-        var durationMinutes = durationFilter.property("value");
-
-        if (durationMinutes !== "") {
-            filterInputs.durationMinutes = durationMinutes;
         }
     }
 
@@ -94,7 +88,7 @@ moreFilters.on("click", function() {
 
     // Use for loop to create additional filters
     var filters = d3.select("#filters");
-    const filterList = ["City", "State", "Country", "Shape","Duration"];
+    const filterList = ["City", "State", "Country", "Shape"];
 
     filterList.forEach(filter => {
         var newLi = filters.append("li").attr("class","filter list-group-item");
