@@ -61,8 +61,6 @@ button.on("click", function() {
         }
     }
 
-    console.log(filterInputs);
-
     var filtered = tableData.filter(obj => {
         var criteria = true;
         Object.entries(filterInputs).forEach(([key, value]) => {
@@ -78,6 +76,7 @@ button.on("click", function() {
     filtered.forEach(appendRowsAndData);
 });
 
+var resetFilters = d3.select("#reset-filter-btn");
 var moreFilters = d3.select("#more-filter-btn");
 var usingMoreFilters = false;
 
@@ -93,7 +92,19 @@ moreFilters.on("click", function() {
     filterList.forEach(filter => {
         var newLi = filters.append("li").attr("class","filter list-group-item");
         newLi.append("label").attr("for", filter).text(`Enter a ${filter}`);
-        newLi.append("input").attr("class", "form-control").attr("type", "text").attr("id", `${filter}-filter`);
+        newLi.append("input").attr("class", "form-control")
+                             .attr("type", "text")
+                             .attr("id", `${filter}-filter`);
     });
     moreFilters.style("display", "none");
+    resetFilters.style("display", "block");
+});
+
+// "reset" button clears filters and displays all data
+resetFilters.on("click", function() {
+    d3.event.preventDefault();
+
+    var allFilters = d3.selectAll("input")
+                       .property("value", "");
+    data.forEach(appendRowsAndData);
 });

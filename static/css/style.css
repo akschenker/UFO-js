@@ -65,6 +65,10 @@ body {
   margin-top: 10px;
 }
 
+#reset-filter-btn {
+  display: none;
+}
+
 select {
   display: block;
   width: 100%;
